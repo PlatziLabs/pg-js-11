@@ -1,4 +1,3 @@
-import * as exercise from "./exercise";
 import { fetchRetry } from "./exercise";
 
 async function solution(url) {
@@ -8,14 +7,12 @@ async function solution(url) {
 
 describe("tests", () => {
 
-  it("should throw a error with 2 retries", () => {
-    const spy = jest.spyOn(exercise, 'fetchRetry')
-    expect(() => exercise.fetchRetry('https://domain-a.com/api-1', 2)).rejects.toThrowError(new Error("Invalid request with 1 retries"));
-    expect(spy).toHaveBeenCalledTimes(2);
+  it("should throw a error with 1 retry", () => {
+    expect(() => fetchRetry('https://domain-a.com/api-1', 1)).rejects.toThrowError(new Error("Invalid request with 1 retries"));
   });
 
-  it("should throw a error with 1 retries", () => {
-    expect(() => fetchRetry('https://domain-a.com/api-1', 1)).rejects.toThrowError(new Error("Invalid request with 2 retries"));
+  it("should throw a error with 2 retries", () => {
+    expect(() => fetchRetry('https://domain-a.com/api-1', 2)).rejects.toThrowError(new Error("Invalid request with 2 retries"));
   });
 
   it("should return the data in json format", async () => {
