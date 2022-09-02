@@ -1,4 +1,4 @@
-import { fetchRetry } from "./exercise";
+import * as exercise from "./exercise";
 
 async function solution(url) {
   const response = await fetch(url);
@@ -8,7 +8,7 @@ async function solution(url) {
 describe("tests", () => {
 
   it("should throw a error with 1 retries", () => {
-    const spy = jest.spyOn({ fetchRetry }, 'fetchRetry')
+    const spy = jest.spyOn(exercise, 'fetchRetry')
     expect(() => fetchRetry('https://domain-a.com/api-1', 1)).rejects.toThrowError(new Error("Invalid request with 1 retries"));
     expect(spy).toHaveBeenCalledTimes(2);
   });
