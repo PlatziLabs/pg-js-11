@@ -7,6 +7,10 @@ async function solution(url) {
 
 describe("tests", () => {
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should throw a error with 1 retry", () => {
     expect(() => fetchRetry('https://domain-a.com/api-1', 1)).rejects.toThrowError(new Error("Invalid request with 1 retries"));
   });
@@ -19,7 +23,7 @@ describe("tests", () => {
 
   it("should call fetch 3 times", () => {
     const spy = jest.spyOn(global, 'fetch')
-    expect(() => fetchRetry('https://domain-a.com/api-1', 2)).rejects.toThrowError(new Error("Invalid request with 3 retries"));
+    expect(() => fetchRetry('https://domain-a.com/api-1', 3)).rejects.toThrowError(new Error("Invalid request with 3 retries"));
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
