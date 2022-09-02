@@ -1,4 +1,5 @@
 import * as exercise from "./exercise";
+import { fetchRetry } from "./exercise";
 
 async function solution(url) {
   const response = await fetch(url);
