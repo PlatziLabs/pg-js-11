@@ -1,6 +1,6 @@
 export async function fetchRetry(url, times, count = 1) {
   try {
-    const response = await fetch(url);
+    const response = await window.fetch(url);
     return response.json();
   } catch (error) {
     if (times === 1) {
