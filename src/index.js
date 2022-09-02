@@ -1,16 +1,25 @@
 import "./styles.css";
-import { runCode } from "./exercise";
+import { fetchRetry } from "./exercise";
 
-(() => {
-  const arrayA = [1, 2, 3, 4];
-  const arrayB = [5, 6, 7, 8];
-  const rta = runCode(arrayA, arrayB);
-
+(async () => {
   document.getElementById("app").innerHTML = `
-  <h1>Title</h1>
-  <p>Array A: <code>${arrayA}</code></p>
-  <p>Array B: <code>${arrayB}</code></p>
-  <p>Response from <code>runCode</code>
-  <pre><code>${rta}</code></pre>
+    <h1>Fetch Util</h1>
+    <p><input id="url" value="https://api.escuelajs.co/api/v1/categories" type="text" placeholder="url"  /></p>
+    <p><input id="retries" value="1" type="number" placeholder="retries" /></p>
+    <p><button type="button" id="btn">Fetch</button></p>
+    <p>Response from <code>fetchRetry</code>
+    <pre><code id="code"></code></pre>
   `;
+
+  document.getElementById("btn").addEventListener("click", async () => {
+    const url = document.getElementById("url").value;
+    const retries = document.getElementById("retries").value;
+    let rta = "";
+    try {
+      rta = await fetchRetry(url, parseInt(retries, 10));
+    } catch (error) {
+      rta = error;
+    }
+    document.getElementById("code").innerHTML = rta;
+  });
 })();
