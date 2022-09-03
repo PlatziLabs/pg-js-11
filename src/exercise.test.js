@@ -18,23 +18,20 @@ describe("tests", () => {
     ).rejects.toThrowError(new Error("Invalid request with 3 retries"));
   });
 
-  it("should call fetch 2 times", async () => {
+  it("should call fetch 2 times", (done) => {
     const spy = jest.spyOn(global, "fetch").mockRejectedValue("error");
-    try {
-      await fetchRetry("https://domain-a.com/api-1", 2);
-    } catch {
+    fetchRetry("https://domain-a.com/api-1", 2).then().catch(() => {
       expect(spy).toHaveBeenCalledTimes(2);
-    }
-
+      done();
+    });
   });
 
-  it("should call fetch 3 times", async () => {
+  it("should call fetch 3 times", (done) => {
     const spy = jest.spyOn(global, "fetch").mockRejectedValue("error");
-    try {
-      await fetchRetry("https://domain-a.com/api-1", 3);
-    } catch {
+    fetchRetry("https://domain-a.com/api-1", 2).then().catch(() => {
       expect(spy).toHaveBeenCalledTimes(3);
-    }
+      done();
+    });
   });
 
   it("should return the data in json format", async () => {
