@@ -21,17 +21,20 @@ describe("tests", () => {
   it("should call fetch 2 times", async () => {
     const spy = jest.spyOn(global, "fetch").mockRejectedValue("error");
     try {
-      await fetchRetry("https://domain-a.com/api-1", 3);
-    } catch {}
-    expect(spy).toHaveBeenCalledTimes(2);
+      await fetchRetry("https://domain-a.com/api-1", 2);
+    } catch {
+      expect(spy).toHaveBeenCalledTimes(2);
+    }
+
   });
 
   it("should call fetch 3 times", async () => {
     const spy = jest.spyOn(global, "fetch").mockRejectedValue("error");
     try {
       await fetchRetry("https://domain-a.com/api-1", 3);
-    } catch {}
-    expect(spy).toHaveBeenCalledTimes(2);
+    } catch {
+      expect(spy).toHaveBeenCalledTimes(3);
+    }
   });
 
   it("should return the data in json format", async () => {
