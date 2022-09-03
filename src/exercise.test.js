@@ -28,7 +28,7 @@ describe("tests", () => {
 
   it("should call fetch 3 times", (done) => {
     const spy = jest.spyOn(global, "fetch").mockRejectedValue("error");
-    fetchRetry("https://domain-a.com/api-1", 2).then().catch(() => {
+    fetchRetry("https://domain-a.com/api-1", 3).then().catch(() => {
       expect(spy).toHaveBeenCalledTimes(3);
       done();
     });
